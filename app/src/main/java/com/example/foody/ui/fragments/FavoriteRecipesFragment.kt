@@ -16,7 +16,6 @@ class FavoriteRecipesFragment : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_favorite_recipes, container, false)
-        view.recyclerview.showShimmer()
         return view
     }
 
