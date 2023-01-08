@@ -8,13 +8,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.foody.MainViewModel
+import com.example.foody.viewmodels.MainViewModel
 import com.example.foody.R
 import com.example.foody.adapters.RecipesAdapter
 import com.example.foody.ui.NetworkResult
 import com.example.foody.util.Constants.Companion.API_KEY
+import com.example.foody.viewmodels.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_favorite_recipes.view.*
 import kotlinx.android.synthetic.main.fragment_recipes.view.*
 
 @AndroidEntryPoint
@@ -26,9 +26,13 @@ class RecipesFragment : Fragment() {
 
     private lateinit var mainViewModel: MainViewModel
 
+    private lateinit var recipeViewModel: RecipesViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        recipeViewModel = ViewModelProvider(requireActivity()).get(RecipesViewModel::class.java)
+
     }
 
     override fun onCreateView(
@@ -45,7 +49,7 @@ class RecipesFragment : Fragment() {
 
 
     private fun requestApiData(){
-        mainViewModel.getRecipes(applyQueries())
+        mainViewModel.getRecipes(recipeViewModel.applyQueries())
         mainViewModel.recipesResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
@@ -67,16 +71,7 @@ class RecipesFragment : Fragment() {
         }
     }
 
-    private fun applyQueries(): HashMap<String, String>{
-        val queries : HashMap<String, String> = HashMap()
-        queries["number"] = "50"
-        queries["apiKey"] = API_KEY
-        queries["type"] = "snack"
-        queries["diet"] = "vegan"
-        queries["addRecipeInformation"] = "true"
-        queries["fillIngredients"] = "true"
-        return queries
-    }
+
 
     private fun setupRecyclerView(){
         mView.recyclerview.adapter = mAdapter
