@@ -14,6 +14,7 @@ class RecipesTypeConverter {
         return gson.toJson(foodRecipe)
     }
 
+    @TypeConverter
     fun stringToFoodRecipe(data: String): FoodRecipe{
         var listType = object: TypeToken<FoodRecipe>(){}.type
         return gson.fromJson(data, listType)
