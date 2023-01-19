@@ -1,4 +1,4 @@
-package com.example.foody.ui.fragments
+package com.example.foody.ui.fragments.recipes
 
 import android.os.Bundle
 import android.util.Log
@@ -11,15 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foody.viewmodels.MainViewModel
-import com.example.foody.R
 import com.example.foody.adapters.RecipesAdapter
 import com.example.foody.databinding.FragmentRecipesBinding
 import com.example.foody.ui.NetworkResult
-import com.example.foody.util.Constants.Companion.API_KEY
 import com.example.foody.util.observeOnce
 import com.example.foody.viewmodels.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_recipes.view.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
