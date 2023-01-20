@@ -57,7 +57,10 @@ class RecipesFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.mainViewModel = mainViewModel
         setupRecyclerView()
-        readDatabase()
+
+        recipeViewModel.readBackOnline.observe(viewLifecycleOwner) {
+            recipeViewModel.backOnline = it
+        }
 
         lifecycleScope.launch{
             networkListener = NetworkListener()
@@ -66,6 +69,7 @@ class RecipesFragment : Fragment() {
                     Log.d("Network Listwner: ", status.toString())
                     recipeViewModel.networkStatus = status
                     recipeViewModel.showNetworkStatus()
+                    readDatabase()
                 }
         }
 
