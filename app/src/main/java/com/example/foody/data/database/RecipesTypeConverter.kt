@@ -20,6 +20,16 @@ class RecipesTypeConverter {
         return gson.fromJson(data, listType)
     }
 
+    @TypeConverter
+    fun resultToString(result: com.example.foody.models.Result): String{
+        return gson.toJson(result)
+    }
+
+    @TypeConverter
+    fun stringToResult(data: String): com.example.foody.models.Result{
+        val listType = object: TypeToken<com.example.foody.models.Result>(){}.type
+        return gson.fromJson(data, listType)
+    }
 
 
 }
